@@ -67,28 +67,28 @@ class CategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
         $categoriesFound = $query->execute();
 
         // nothing found?
-        if ($categoriesFound->count() == 0)
-            return NULL;
+        if ($categoriesFound->count() == 0) $categoriesFound = NULL;
 
-        if ($firstOnly) {
-            $categoriesFound = $categoriesFound->getFirst();
+        if ($categoriesFound != null) {
+            if ($firstOnly) {
+                $categoriesFound = $categoriesFound->getFirst();
 
-            // title only?
-            /**
-             * @var \TYPO3\CMS\Extbase\Domain\Model\Category $categoriesFound
-             */
-            if ($titleOnly) $categoriesFound = $categoriesFound->getTitle();
-        }
-        // title only? -> create array of titles
-        elseif ($titleOnly) {
-            $titles = array();
-            /**
-             * @var \TYPO3\CMS\Extbase\Domain\Model\Category $category
-             */
-            foreach ($categoriesFound as $category)
-                $titles[] = $category->getTitle();
+                // title only?
+                /**
+                 * @var \TYPO3\CMS\Extbase\Domain\Model\Category $categoriesFound
+                 */
+                if ($titleOnly) $categoriesFound = $categoriesFound->getTitle();
+            } // title only? -> create array of titles
+            elseif ($titleOnly) {
+                $titles = array();
+                /**
+                 * @var \TYPO3\CMS\Extbase\Domain\Model\Category $category
+                 */
+                foreach ($categoriesFound as $category)
+                    $titles[] = $category->getTitle();
 
-            $categoriesFound = $titles;
+                $categoriesFound = $titles;
+            }
         }
 
         // return directly
