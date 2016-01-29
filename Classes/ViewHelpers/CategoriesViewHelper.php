@@ -63,6 +63,8 @@ class CategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
         // get categories
         $query = $this->categoryRepository->createQuery();
         $query->matching($query->in('uid', $categories));
+        if ($titleOnly)
+            $query->setLimit(1);
 
         $categoriesFound = $query->execute();
 
