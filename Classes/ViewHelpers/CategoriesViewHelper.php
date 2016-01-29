@@ -66,6 +66,9 @@ class CategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
         if ($titleOnly)
             $query->setLimit(1);
 
+        // Ignore storage space
+        $query->getQuerySettings()->setRespectStoragePage(true);
+
         $categoriesFound = $query->execute();
 
         // nothing found?
