@@ -50,21 +50,37 @@ class CategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
     }
 
     /**
-     * @param string|array $categories categories either string (comma separated) or list of uids as array
+     * @param string|array $categories categories either string (comma separated) or list of uids as array (can be null)
+     * @param string|integer $pid parent page id containing categories
      * @param string $as render as variable instead of returning array directly
      * @param boolean $firstOnly if true return only first record
      * @param boolean $titleOnly if true return titles only (either array or string if firstOnly set)
      * @return array|string|\TYPO3\CMS\Extbase\Domain\Model\Category array of categories (if as is set) or output or single entry
      */
-    public function render($categories, $as = NULL, $firstOnly = FALSE, $titleOnly = FALSE) {
-        // explode if string
-        if (is_string($categories)) $categories = explode(',', $categories);
+    public function render($categories = NULL, $pid = NULL, $as = NULL, $firstOnly = FALSE, $titleOnly = FALSE) {
+        if (!empty($categories)) {
+            // explode if string
+            if (is_string($categories)) $categories = explode(',', $categories);
+        } else $categories = NULL;
+
+        // page id
+        if (!empty($pid)) $pid = intval($pid);
+
+        // define contain array
+        $contain = array();
 
         // get categories
         $query = $this->categoryRepository->createQuery();
-        $query->matching($query->in('uid', $categories));
+        if (!empty($categories))
+            $contain[] = $query->in('uid', $categories);
+        if (!empty($pid))
+            $contain[] = $query->equals('pid', $pid);
         if ($titleOnly)
             $query->setLimit(1);
+
+        // any filters?
+        if (!empty($contain))
+            $query->matching($query->logicalAnd($contain));
 
         // Ignore storage space
         $query->getQuerySettings()->setRespectStoragePage(true);
