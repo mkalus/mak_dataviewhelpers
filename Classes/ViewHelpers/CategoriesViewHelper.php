@@ -83,7 +83,7 @@ class CategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
             $query->matching($query->logicalAnd($contain));
 
         // Ignore storage space
-        $query->getQuerySettings()->setRespectStoragePage(true);
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
         $categoriesFound = $query->execute();
 
