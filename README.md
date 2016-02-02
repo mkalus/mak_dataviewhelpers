@@ -40,7 +40,7 @@ Example:
 Parameters:
 
 * `categories` single uid or array of uids
-* `pid` single page uid containg categories
+* `pid` single page uid containing categories
 * `firstOnly` true/false, only return first element (instead of array of elements)
 * `titleOnly` true/false, return title only (either string or array of strings)
 * `as` set variable name to set variable instead of returning elements
@@ -56,3 +56,21 @@ Example:
     <dv:compact>blah</dv:compact>
 
 Strips extra whitespace from content to compact output in order to save bandwidth.
+
+
+**LoadEntitiesViewHelper**
+
+Example:
+
+    <dv:loadEntities repository="AUXNET\MakDataviewhelpers\Domain\Repository\XYZRepository" pid="38" />
+
+Parameters:
+
+* `repository` full repository name, e.g. AUXNET\MakDataviewhelpers\Domain\Repository\XYZRepository
+* `uid` single entity uid (will return single entry if found)
+* `pid` single page uid containing entities
+* `orderByField` order by this field
+* `asc` true/false, order ascending (or descending?)
+* `limit` limit to entities
+
+Load entities from any repository by specifying repository name and a few parameters.

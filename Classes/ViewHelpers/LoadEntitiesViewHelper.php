@@ -24,6 +24,7 @@ namespace AUXNET\MakDataviewhelpers\ViewHelpers;
      *
      *  This copyright notice MUST APPEAR in all copies of the script!
      ***************************************************************/
+
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -59,9 +60,9 @@ class LoadEntitiesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
         $constraints = array();
 
         // add constraints
+        $query->getQuerySettings()->setRespectStoragePage(FALSE);
         if ($pid !== NULL)
             $constraints[] = $query->equals('pid', $pid);
-        else $query->getQuerySettings()->setRespectStoragePage(FALSE);
 
         if (!empty($uid))
             $constraints[] = $query->equals('uid', $uid);
