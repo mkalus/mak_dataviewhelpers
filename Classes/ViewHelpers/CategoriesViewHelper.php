@@ -58,6 +58,14 @@ class CategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
      * @return array|string|\TYPO3\CMS\Extbase\Domain\Model\Category array of categories (if as is set) or output or single entry
      */
     public function render($categories = NULL, $pid = NULL, $as = NULL, $firstOnly = FALSE, $titleOnly = FALSE) {
+        $repository = '\BfvAddress\BfvAddress\Domain\Repository\AddressRepository';
+
+        /**
+         * @var \TYPO3\CMS\Extbase\Persistence\Repository $repository
+         */
+        $repository = $this->objectManager->get($repository);
+
+
         if (!empty($categories)) {
             // explode if string
             if (is_string($categories)) $categories = explode(',', $categories);
