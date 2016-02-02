@@ -72,5 +72,6 @@ Parameters:
 * `orderByField` order by this field
 * `asc` true/false, order ascending (or descending?)
 * `limit` limit to entities
+* `as` set variable name to set variable instead of returning elements
 
 Load entities from any repository by specifying repository name and a few parameters.

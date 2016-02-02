@@ -43,9 +43,10 @@ class LoadEntitiesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
      * @param string $orderByField order by this field
      * @param bool $asc ascending or descending
      * @param int $limit limit query to maximum hits
+     * @param string $as render as variable instead of returning array directly
      * @return array|null|object
      */
-    public function render($repository, $uid = NULL, $pid = NULL, $orderByField = NULL, $asc = TRUE, $limit = NULL) {
+    public function render($repository, $uid = NULL, $pid = NULL, $orderByField = NULL, $asc = TRUE, $limit = NULL, $as = NULL) {
         try {
             /**
              * @var \TYPO3\CMS\Extbase\Persistence\Repository $rep
@@ -81,12 +82,18 @@ class LoadEntitiesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
         $results = $query->execute();
 
         // no results -> return null
-        if ($results->count() == 0) return NULL;
+        if ($results->count() == 0) $results = NULL;
 
         // in case of uid set, return only one result
-        if (!empty($uid))
-            return $results->getFirst();
+        elseif (!empty($uid))
+            $results = $results->getFirst();
 
-        return $results;
+        // return directly
+        if (empty($as)) return $results;
+
+        $this->templateVariableContainer->add($as, $results);
+        $output = $this->renderChildren();
+        $this->templateVariableContainer->remove($as);
+        return $output;
     }
 }
