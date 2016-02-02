@@ -1,6 +1,6 @@
 # mak_dataviewhelpers
 
-Extension for TYPO3 with my onw view helpers. Right now, there is not much, but it will grow...
+Extension for TYPO3 with my own view helpers. Description below.
 
 ## Using the View Helpers
 
@@ -24,3 +24,12 @@ Parameters:
 
 Returns either array of elements, single entry, string or output. If nothing is found,
 null is returned.
+
+
+**CompactViewHelper**
+
+Example:
+
+    <dv:compact>blah</dv:compact>
+
+Strips extra whitespace from content to compact output in order to save bandwidth.
