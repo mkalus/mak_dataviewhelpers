@@ -7,7 +7,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Data View Helpers',
-	'description' => 'ViewHelpers to render stuff in FE.',
+	'description' => 'ViewHelpers to render stuff in FE, e.g. to cache or compact output, or a generic repository helper.',
 	'category' => 'plugin',
 	'author' => 'Dr. Maximilian Kalus',
 	'author_email' => 'info@auxnet.de',
