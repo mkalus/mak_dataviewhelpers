@@ -8,6 +8,29 @@ Namespace:
 
     {namespace dv=AUXNET\MakDataviewhelpers\ViewHelpers}
 
+**CachedViewHelper**
+
+Example:
+
+    <dv:cached key="show_stuff_123" lifetime="120">Stuff</dv:cached>
+
+Parameters:
+
+* `key` unique cache key
+* `lifetime` cache lifetime in seconds (0 = default as per page)
+* `tags` optional cache tags
+* `noCache` if value is set in this parameter, do not cache entry
+
+Put content into TYPO3 cache with a certain key and lifetime. Great to speed up
+rendering complex elements. Type of cache can be set by (re-)defining following TYPO3
+config variable:
+
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mak_dataviewhelpers']
+    // example: turn on Redis cache for my cached view parts
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mak_dataviewhelpers']['backend']
+        = 'TYPO3\\CMS\\Core\\Cache\\Backend\\RedisBackend';
+
+
 **CategoriesViewHelper**
 
 Example:
